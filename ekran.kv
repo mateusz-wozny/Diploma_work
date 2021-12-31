@@ -1,0 +1,380 @@
+
+<ItemDrawer>:
+
+    IconLeftWidget:
+        id: icon
+        icon: root.icon
+
+
+<Check@MDCheckbox>:
+    group:'group'
+    id:group
+    size_hint:None,None
+    size:dp(30),dp(30)
+    unselected_color:1,1,1,1
+<czek@MDCheckbox>:
+    group:'group2'
+    size_hint:None,None
+    size:dp(30),dp(30)
+    unselected_color:1,1,1,1
+<ContentNavigationDrawer>:
+    orientation: "vertical"
+    padding: "8dp"
+    spacing: "8dp"
+
+    AnchorLayout:
+        anchor_x: "left"
+        size_hint_y: None
+        MDLabel:
+            text:"Mateusz Woźny \nMatematyka w Technice"
+            post_hint:None,None
+
+
+        #height: avatar.height
+        #Image:
+            #id: avatar
+            #size_hint: None, None
+            #size: "150dp", "200dp"
+            #source: "logo.png"
+
+    ScrollView:
+
+        DrawerList:
+            id: md_list
+
+
+
+MDScreen:
+    MDNavigationLayout:
+        ScreenManager:
+            id:manager
+
+            MDScreen:
+                name:"RSA"
+                MDBoxLayout:
+                    id:tool
+                    spacing:"20dp"
+                    orientation: 'vertical'
+                    MDToolbar:
+                        title: "Menu"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
+
+                        MDSwitch:
+                            id:switch
+                            on_active:app.down(switch,switch2,switch3,[Rabin,Fermat,probne,fer,Pollard,check])
+
+
+                    MDGridLayout:
+                        rows:9
+                        MDBoxLayout:
+                            spacing:"50dp"
+                            MDTextField:
+                                id:g
+                                hint_text:"Wprowadź granicę górną"
+                                #input_filter: "int"
+                                #size_hint: None,None
+                                #width: "388dp"
+                                on_text_validate:app.aktualizuj_gorna("RSA")
+
+                            MDTextField:
+                                id:d
+                                hint_text:"Wprowadź granicę dolną"
+                                #size_hint: None,None
+                                #width: "388dp"
+                                #input_filter: "int"
+                                on_text_validate:app.aktualizuj_dolna("RSA")
+                            MDRaisedButton:
+                                text:"Generuj klucz"
+                                on_release:app.generuj_klucz_RSA()
+
+                        MDBoxLayout:
+                            MDFlatButton:
+                                id:n
+                                font_size:"16dp"
+                                on_release:app.pokaz("n")
+                            MDFlatButton:
+                                id:b
+                                font_size:"16dp"
+                                on_release:app.pokaz("b")
+
+
+
+                        MDBoxLayout:
+                            spacing:"240dp"
+                            MDLabel:
+                                text:"Podział wyrazów"
+                            MDTextField:
+                                id:podzial
+                                hint_text:"Wprowadź podział wyrazów"
+                                #text:"6"
+                                max_text_length:2
+                                input_filter: "int"
+                                size_hint: None,None
+                                width: "88dp"
+                                on_text_validate:app.aktualizuj_podzial("RSA")
+                            MDLabel:
+                                id:p
+
+                        MDBoxLayout:
+                            MDBoxLayout:
+                                MDLabel:
+                                    text:"Maksymalny podział wyrazów"
+
+                                MDLabel:
+                                    id:minimalna
+                                    #text:"6"
+
+                        MDTextField:
+                            id:tekst
+                            hint_text:"Wprowadź tekst"
+                            size_hint: None,None
+                            width: "500dp"
+                            on_text_validate:app.zapisz_tekst("RSA")
+                        MDBoxLayout:
+                            spacing:"100dp"
+                            MDRaisedButton:
+                                text:"Zaszyfruj \nRSA"
+                                on_release:app.zaszyfruj_Rsa()
+                            MDRaisedButton:
+                                text:"Pokaż tekst \nzaszyfrowany"
+                                on_release:app.pokaz_zaszyfrowany("RSA")
+                            MDRaisedButton:
+                                text:"Odszyfruj \nRSA"
+                                on_release:app.odszyfruj_Rsa()
+
+
+                        MDLabel:
+                            text:"Odszyfrowany tekst"
+                        MDTextFieldRect:
+                            id:odszyfrowane
+                            size_hint: 1, None
+                            #read_only:True
+
+
+            MDScreen:
+                name: "Rabin"
+                MDBoxLayout:
+
+                    orientation: 'vertical'
+                    MDToolbar:
+                        id:meny
+                        title: "Menu"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
+                        MDSwitch:
+                            id:switch2
+                            on_active:app.down(switch2,switch,switch3,[Rabin,Fermat,probne,fer,Pollard,check])
+
+                    MDGridLayout:
+                        rows:9
+                        MDBoxLayout:
+                            spacing:"50dp"
+                            MDTextField:
+                                id:g2
+                                hint_text:"Wprowadź granicę górną"
+                                #input_filter: "int"
+                                #size_hint: None,None
+                                #width: "388dp"
+                                on_text_validate:app.aktualizuj_gorna("Rabin")
+
+                            MDTextField:
+                                id:d2
+                                hint_text:"Wprowadź granicę dolną"
+                                #size_hint: None,None
+                                #width: "388dp"
+                                #input_filter: "int"
+                                on_text_validate:app.aktualizuj_dolna("Rabin")
+                            MDRaisedButton:
+                                text:"Generuj klucz"
+                                on_release:app.generuj_klucz_Rabin()
+
+                        MDBoxLayout:
+                            MDFlatButton:
+                                id:n2
+                                font_size:"16dp"
+                                on_release:app.pokaz("n")
+
+
+                        MDBoxLayout:
+                            spacing:"240dp"
+                            MDLabel:
+                                text:"Podział wyrazów"
+                            MDTextField:
+                                id:podzial2
+                                hint_text:"Wprowadź podział wyrazów"
+                                #text:"6"
+                                max_text_length:2
+                                input_filter: "int"
+                                size_hint: None,None
+                                width: "88dp"
+                                on_text_validate:app.aktualizuj_podzial("Rabin")
+                            MDLabel:
+                                id:p2
+
+                        MDBoxLayout:
+                            MDBoxLayout:
+                                MDLabel:
+                                    text:"Maksymalny podział wyrazów"
+
+                                MDLabel:
+                                    id:minimalna2
+                                    #text:"6"
+
+                        MDTextField:
+                            id:tekst2
+                            hint_text:"Wprowadź tekst"
+                            size_hint: None,None
+                            width: "500dp"
+                            on_text_validate:app.zapisz_tekst("Rabin")
+                        MDBoxLayout:
+                            spacing:"70dp"
+                            MDRaisedButton:
+                                text:"Zaszyfruj Rabin"
+                                on_release:app.zaszyfruj_Rabin()
+                            MDLabel:
+                                text:"Wyświetl tekst jawny"
+                                #size_hint: None,None
+                                #width: "500dp"
+                            MDCheckbox:
+                                id:check
+                                active:True
+                                unselected_color:1,1,1,1
+                            MDRaisedButton:
+                                text:"Pokaż tekst \nzaszyfrowany"
+                                on_release:app.pokaz_zaszyfrowany("Rabin")
+                            MDRaisedButton:
+                                text:"Odszyfruj Rabin"
+                                on_release:app.odszyfruj_Rabin()
+
+
+
+                        MDLabel:
+                            text:"Odszyfrowany tekst"
+                        MDTextFieldRect:
+                            id:odszyfrowane2
+                            size_hint: 1, None
+                            #read_only:True
+
+            MDScreen:
+                name: "Faktoryzacja"
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    spacing:"20dp"
+                    MDToolbar:
+                        id:meny
+                        title: "Menu"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
+                        MDSwitch:
+                            id:switch3
+                            on_active:app.down(switch3,switch,switch2,[Rabin,Fermat,probne,fer,Pollard,check])
+
+                    #MDBoxLayout:
+                        #spacing:"100dp"
+
+
+                    MDGridLayout:
+                        spacing:"40dp"
+                        rows:2
+                        MDBoxLayout:
+                            orientation:"vertical"
+                            MDLabel:
+                                text: "Test pierwszości"
+                            MDGridLayout:
+                                cols:8
+                                MDBoxLayout:
+                                    orientation:"vertical"
+                                    MDLabel:
+                                        text:"Rabin-Miller"
+                                    Check:
+                                        id:Rabin
+                                        active:True
+                                MDBoxLayout:
+                                    orientation:"vertical"
+                                    MDLabel:
+                                        text:"Fermat"
+                                    Check:
+                                        id:Fermat
+                            MDTextField:
+                                id:liczba
+                                hint_text:"Wprowadź liczbę"
+                                max_text_length:14
+                                size_hint: None,None
+                                width: "200dp"
+                                input_filter: "int"
+
+                                on_text_validate:app.czy_pierwsza()
+                            MDGridLayout:
+                                rows:2
+                                MDLabel:
+                                    text:"Czy jest pierwsza?"
+                                MDLabel:
+                                    id:pierwsza
+                        MDBoxLayout:
+                            orientation:"vertical"
+                            MDBoxLayout:
+                                orientation:"vertical"
+                                spacing:"90dp"
+                                MDLabel:
+                                    text: "Faktoryzacja"
+                                MDGridLayout:
+                                    cols:3
+                                    MDBoxLayout:
+                                        spacing:"20dp"
+                                        orientation:"vertical"
+                                        MDLabel:
+                                            text:"Próbne dzielenia"
+                                        czek:
+                                            active:True
+                                            id:probne
+                                    MDBoxLayout:
+                                        spacing:"20dp"
+                                        orientation:"vertical"
+                                        MDLabel:
+                                            text:"Fermat"
+                                        czek:
+                                            id:fer
+                                    MDBoxLayout:
+                                        spacing:"20dp"
+                                        orientation:"vertical"
+                                        MDLabel:
+                                            text:"Rho Pollarda"
+                                        czek:
+                                            id:Pollard
+
+                            MDBoxLayout:
+                                spacing:"100dp"
+
+                                MDTextField:
+                                    id:zlozona
+                                    hint_text:"Wprowadź liczbę"
+                                    max_text_length:10
+                                    size_hint: None,None
+                                    width: "200dp"
+                                    input_filter: "int"
+                                    on_text_validate:app.faktoryzacja()
+                                MDGridLayout:
+                                    rows:2
+                                    spacing:"20dp"
+                                    MDLabel:
+                                        text:"Czynniki pierwsze: "
+                                    MDLabel:
+                                        id:rozklad
+                            MDBoxLayout:
+                                spacing:"50dp"
+                                MDRaisedButton:
+                                    text:"Sprawdź wynik"
+                                    on_release:app.sprawdz()
+                                MDBoxLayout:
+                                    orientation:"vertical"
+                                    MDLabel:
+                                        text:"Iloczyn czynników to"
+                                    MDLabel:
+                                        id:iloczyn
+
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            ContentNavigationDrawer:
+                id: content_drawer
