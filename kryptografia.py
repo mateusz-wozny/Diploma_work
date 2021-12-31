@@ -113,7 +113,7 @@ class Kryptografia():
             j = len(tab[i]) - 1
             suma = 0
             for x in tab[i]:
-                suma = int(int(slownikodw[x]) * pow(N, j)) + suma
+                suma += int(int(slownikodw[x]) * pow(N, j))
                 j -= 1
             przel.append(suma)
 

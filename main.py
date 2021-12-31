@@ -5,7 +5,6 @@ import time
 from functools import reduce
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.selectioncontrol import MDSwitch
-
 from edycja import Deletedot, part_document
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -201,6 +200,7 @@ class Kryptografia(MDApp):
         Deletedot('pliki/wprowadzony_tekst', 'chwil')
 
         os.remove('chwil.txt')
+
     def generuj_klucz_RSA(self) -> None:
         """
         Funkcja wyznacza losowo liczby pierwsze p oraz q, następnie oblicza pozostałe parametry funkcji szyfrującej (deszyfrującej) systemu RSA.
@@ -236,11 +236,12 @@ class Kryptografia(MDApp):
                     self.root.ids.b.text = 'b= ' + format(b, '10.2e')
                 else:
                     self.root.ids.b.text = f'b= {b:,}'
-                self.root.ids.minimalna.text=str(int(math.log(n.n, 37)))
+                self.root.ids.minimalna.text = str(int(math.log(n.n, 37)))
             else:
                 MDDialog(text="Wprowadzono niepoprawne granice").open()
         except Exception as e:
             self.root.ids.odszyfrowane.text = str(e)
+
     def zaszyfruj_Rsa(self) -> None:
         """
         Funkcja edytuje wprowadzony tekst, usuwając wszystkie wartości niebędące literami lub spacją,
@@ -250,7 +251,7 @@ class Kryptografia(MDApp):
 
         try:
 
-            if  int(self.ciag) > 0:
+            if int(self.ciag) > 0:
                 self.root.ids.odszyfrowane.text = ""
 
                 # Usunięcie znaków interpunkcyjnych
@@ -265,7 +266,6 @@ class Kryptografia(MDApp):
         except Exception as e:
             self.root.ids.odszyfrowane.text = str(e)
 
-
     def odszyfruj_Rsa(self) -> None:
         """
         Funkcja deszyfrująca wiadomość zaszyfrowaną za pomocą systemu RSA.
@@ -277,6 +277,7 @@ class Kryptografia(MDApp):
                 self.root.ids.odszyfrowane.text = zak.read()
         except Exception as e:
             self.root.ids.odszyfrowane.text = str(e)
+
     def generuj_klucz_Rabin(self) -> None:
         """
         Funkcja wyznacza losowo liczby pierwsze p oraz q, następnie oblicza pozostałe parametry funkcji szyfrującej (deszyfrującej) systemu Rabina.
@@ -308,6 +309,7 @@ class Kryptografia(MDApp):
                 MDDialog(text="Wprowadzono niepoprawne granice").open()
         except Exception as e:
             self.root.ids.odszyfrowane2.text = str(e)
+
     def zaszyfruj_Rabin(self) -> None:
         """
         Funkcja szyfrująca wprowadzony tekst za pomocą funkcji szyfrującej zdefiniowanej dla systemu Rabina.
@@ -449,6 +451,7 @@ class Kryptografia(MDApp):
             for czek in g:
                 czek.unselected_color = 1, 1, 1, 1
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     Kryptografia().run()
     # help(Kryptografia().down)
