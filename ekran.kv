@@ -116,7 +116,6 @@ MDScreen:
 
                                 MDLabel:
                                     id:minimalna
-                                    #text:"6"
 
                         MDTextField:
                             id:tekst
@@ -142,7 +141,7 @@ MDScreen:
                         MDTextFieldRect:
                             id:odszyfrowane
                             size_hint: 1, None
-                            #read_only:True
+
 
 
             MDScreen:
@@ -166,17 +165,11 @@ MDScreen:
                             MDTextField:
                                 id:g2
                                 hint_text:"Wprowadź granicę górną"
-                                #input_filter: "int"
-                                #size_hint: None,None
-                                #width: "388dp"
                                 on_text_validate:app.aktualizuj_gorna("Rabin")
 
                             MDTextField:
                                 id:d2
                                 hint_text:"Wprowadź granicę dolną"
-                                #size_hint: None,None
-                                #width: "388dp"
-                                #input_filter: "int"
                                 on_text_validate:app.aktualizuj_dolna("Rabin")
                             MDRaisedButton:
                                 text:"Generuj klucz"
@@ -196,7 +189,6 @@ MDScreen:
                             MDTextField:
                                 id:podzial2
                                 hint_text:"Wprowadź podział wyrazów"
-                                #text:"6"
                                 max_text_length:2
                                 input_filter: "int"
                                 size_hint: None,None
@@ -212,7 +204,6 @@ MDScreen:
 
                                 MDLabel:
                                     id:minimalna2
-                                    #text:"6"
 
                         MDTextField:
                             id:tekst2
@@ -227,8 +218,6 @@ MDScreen:
                                 on_release:app.zaszyfruj_Rabin()
                             MDLabel:
                                 text:"Wyświetl tekst jawny"
-                                #size_hint: None,None
-                                #width: "500dp"
                             MDCheckbox:
                                 id:check
                                 active:True
@@ -247,7 +236,6 @@ MDScreen:
                         MDTextFieldRect:
                             id:odszyfrowane2
                             size_hint: 1, None
-                            #read_only:True
 
             MDScreen:
                 name: "Faktoryzacja"
@@ -263,8 +251,6 @@ MDScreen:
                             id:switch3
                             on_active:app.down(switch3,switch,switch2,[Rabin,Fermat,probne,fer,Pollard,check])
 
-                    #MDBoxLayout:
-                        #spacing:"100dp"
 
 
                     MDGridLayout:

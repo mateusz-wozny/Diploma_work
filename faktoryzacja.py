@@ -139,8 +139,8 @@ def wykres_faktoryzacja(dane: pd.DataFrame, nazwa: str) -> None:
     """
     sns.relplot(
         data=dane,
-        x="n [-]", y="p/q [-]", hue="Czas [s]", palette="Spectral",
-        height=3.6
+        x="n [-]", y="p/q [-]", hue="Czas [s]", palette="viridis",
+        hue_norm=(0, 20), height=3.6
     )
 
     plt.xscale("log")
