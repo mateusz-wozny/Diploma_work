@@ -114,7 +114,9 @@ def porownanie(alg: str) -> None:
 
     :param alg: Wybór algorytmu faktoryzacji alg="P" metoda Pollarda, alg="F" algorytm Fermata, alg="T" algorytm próbnych dzieleń
     """
-    df = pd.read_excel('Faktoryzacjav2.xlsx')
+
+    slow = {'P': 'Pollard', 'F':'Fermat', 'T':'Próbne'}
+    df = pd.read_excel('Faktoryzacja/Faktoryzacjav2.xlsx')
     wyn = []
     for p, q in zip(df['p'], df['q']):
         if alg == 'P':
@@ -125,7 +127,7 @@ def porownanie(alg: str) -> None:
             x = trial_divide(p * q, time())
         wyn.append([p * q, round(p / q, 5), x[2]])
     wynik = pd.DataFrame(data=wyn, columns=['n', 'p/q', 'Czas obliczeń'])
-    wynik.to_json('Próbne.json')
+    wynik.to_json(f'Faktoryzacja/{slow[alg]}.json')
 
 
 def wykres_faktoryzacja(dane: pd.DataFrame, nazwa: str) -> None:
@@ -199,8 +201,8 @@ def wykres_generowanie() -> None:
     Tworzy 3 wykresy punktowe i automatycznie zapisuje je w folderze Generowanie.
 
     """
-    df1 = pd.read_excel('Sundarama.xlsx')
-    df2 = pd.read_excel('Eratostenes.xlsx')
+    df1 = pd.read_excel('Generowanie/Sundarama.xlsx')
+    df2 = pd.read_excel('Generowanie/Eratostenes.xlsx')
     # Wykres porównawczy
     fig = plt.scatter(df1['Wartość'], df1['Czas'])
     fig2 = plt.scatter(df2['Wartość'], df2['Czas'])

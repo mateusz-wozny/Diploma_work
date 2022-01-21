@@ -140,13 +140,5 @@ cython_debug/
 # PyCharm
 .idea/
 
-#Excel Files
-*.xlsx
-
-#Faktoryzacja
-Faktoryzacja/
-
-#Generowanie
-Generowanie/
 #pliki
 pliki/
