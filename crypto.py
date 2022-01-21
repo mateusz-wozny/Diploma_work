@@ -503,4 +503,4 @@ class Kryptografia():
 
 
 if __name__ == '__main__':
-    print(Kryptografia.Tonelli_Shanks(65537, 7662))
+    print(Kryptografia.Tonelli_Shanks(7, 53))

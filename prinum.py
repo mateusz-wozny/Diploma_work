@@ -2,7 +2,7 @@ import math
 import random
 import time
 import numpy as np
-import kryptografia as zs
+import crypto as zs
 
 
 

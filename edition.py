@@ -1,4 +1,4 @@
-from kryptografia import slownikodw
+from crypto import slownikodw
 
 
 

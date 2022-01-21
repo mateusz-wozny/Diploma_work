@@ -1,8 +1,8 @@
-import kryptografia as zs
+import crypto as zs
 import math
 from time import time
 import pandas as pd
-from primes import prim
+from prinum import prim
 import json
 import matplotlib.pyplot as plt
 import seaborn as sns

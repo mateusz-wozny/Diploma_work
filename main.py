@@ -5,17 +5,17 @@ import time
 from functools import reduce
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.selectioncontrol import MDSwitch
-from edycja import Deletedot, part_document
+from edition import Deletedot, part_document
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
-import kryptografia as zs
+import crypto as zs
 from kivy.lang import Builder
 from kivy.properties import StringProperty, ListProperty
 from kivymd.app import MDApp
 from kivymd.theming import ThemableBehavior
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.list import OneLineIconListItem, MDList
-import primes as ps
+import prinum as ps
 
 tekst = []
 styl = {True: "Dark", False: "Light"}
@@ -454,4 +454,3 @@ class Kryptografia(MDApp):
 
 if __name__ == '__main__':
     Kryptografia().run()
-    # help(Kryptografia().down)
