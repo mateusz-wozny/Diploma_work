@@ -1,3 +1,24 @@
+<Content>:
+    id:content
+    orientation: "horizontal"
+    size_hint_y: None
+    height: "60dp"
+    spacing: "20dp"
+    MDTextField:
+        id: pollard_a
+        hint_text: "a"
+        size_hint: 0.05, None
+        on_text_validate:app.funkcja_Pollard("a")
+    MDTextField:
+        id: pollard_b
+        hint_text: "b"
+        size_hint: 0.05, None
+        on_text_validate:app.funkcja_Pollard("b")
+    MDTextField:
+        id: pollard_c
+        hint_text: "c"
+        size_hint: 0.05, None
+        on_text_validate:app.funkcja_Pollard("c")
 
 <ItemDrawer>:
 
@@ -67,6 +88,7 @@ MDScreen:
 
                     MDGridLayout:
                         rows:9
+                        padding: "20dp"
                         MDBoxLayout:
                             spacing:"50dp"
                             MDTextField:
@@ -95,7 +117,8 @@ MDScreen:
 
 
                         MDBoxLayout:
-                            spacing:"240dp"
+
+                            spacing:"150dp"
                             MDLabel:
                                 text:"Podział wyrazów"
                             MDTextField:
@@ -160,6 +183,7 @@ MDScreen:
 
                     MDGridLayout:
                         rows:9
+                        padding: "20dp"
                         MDBoxLayout:
                             spacing:"50dp"
                             MDTextField:
@@ -222,6 +246,7 @@ MDScreen:
                                 id:check
                                 active:True
                                 unselected_color:1,1,1,1
+                                on_state: app.zmien_minimalna()
                             MDRaisedButton:
                                 text:"Pokaż tekst \nzaszyfrowany"
                                 on_release:app.pokaz_zaszyfrowany("Rabin")
@@ -254,15 +279,19 @@ MDScreen:
 
 
                     MDGridLayout:
-                        spacing:"40dp"
+                        spacing:"70dp"
+                        padding: "20dp"
                         rows:2
                         MDBoxLayout:
                             orientation:"vertical"
                             MDLabel:
                                 text: "Test pierwszości"
+                            Widget:
                             MDGridLayout:
                                 cols:8
+
                                 MDBoxLayout:
+                                    spacing:"10dp"
                                     orientation:"vertical"
                                     MDLabel:
                                         text:"Rabin-Miller"
@@ -270,6 +299,7 @@ MDScreen:
                                         id:Rabin
                                         active:True
                                 MDBoxLayout:
+                                    spacing:"10dp"
                                     orientation:"vertical"
                                     MDLabel:
                                         text:"Fermat"
@@ -286,6 +316,7 @@ MDScreen:
                                 on_text_validate:app.czy_pierwsza()
                             MDGridLayout:
                                 rows:2
+                                spacing:"20dp"
                                 MDLabel:
                                     text:"Czy jest pierwsza?"
                                 MDLabel:
@@ -304,6 +335,7 @@ MDScreen:
                                         orientation:"vertical"
                                         MDLabel:
                                             text:"Próbne dzielenia"
+                                            font_size:"16dp"
                                         czek:
                                             active:True
                                             id:probne
@@ -312,15 +344,20 @@ MDScreen:
                                         orientation:"vertical"
                                         MDLabel:
                                             text:"Fermat"
+                                            font_size:"16dp"
                                         czek:
                                             id:fer
                                     MDBoxLayout:
-                                        spacing:"20dp"
+                                        #spacing:"20dp"
                                         orientation:"vertical"
-                                        MDLabel:
+
+                                        MDFlatButton:
                                             text:"Rho Pollarda"
+                                            font_size:"16dp"
+                                            on_release:app.zmien_Pollard()
                                         czek:
                                             id:Pollard
+                                            on_state:app.domyslne_wspolczynniki()
 
                             MDBoxLayout:
                                 spacing:"100dp"
@@ -333,6 +370,7 @@ MDScreen:
                                     width: "200dp"
                                     input_filter: "int"
                                     on_text_validate:app.faktoryzacja()
+
                                 MDGridLayout:
                                     rows:2
                                     spacing:"20dp"

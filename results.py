@@ -1,3 +1,5 @@
+import random
+
 import crypto as zs
 import math
 from time import time
@@ -37,7 +39,10 @@ def Pollard(n: int, czas: float, a=1, b=0, c=3, B=1000000, pocz=2):
         if 1 < d < m:
             break
         if d == m:
-            break
+            if prim.test_Millera_Rabina(d, 10):
+                break
+            else:
+                x=random.randint(1, n-1)
         if time() - czas > 20:
             return 0, 0, time() - czas
         i += 1
@@ -225,4 +230,4 @@ def wykres_generowanie() -> None:
 
 
 if __name__ == "__main__":
-    generuj_wykres()
+    print(Pollard(77, time()))

@@ -3,6 +3,8 @@ import os
 import random
 import time
 from functools import reduce
+
+import numpy
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.selectioncontrol import MDSwitch
 from edition import Deletedot, part_document
@@ -16,6 +18,10 @@ from kivymd.theming import ThemableBehavior
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.list import OneLineIconListItem, MDList
 import prinum as ps
+from kivy.core.window import Window
+
+Window.size = (820, 550)
+Window.minimum_width, Window.minimum_height = Window.size
 
 tekst = []
 styl = {True: "Dark", False: "Light"}
@@ -304,11 +310,22 @@ class Kryptografia(MDApp):
 
                 else:
                     self.root.ids.n2.text = f'n= {self.n.n:,}'
-                self.root.ids.minimalna2.text = str(int(math.log(self.n.n, 37)))
+                if self.root.ids.check.active:
+                    new_n = int(bin(self.n.n)[:-8], 2)
+                    self.root.ids.minimalna2.text = str(int(math.log(new_n, 37)))
+                else:
+                    self.root.ids.minimalna2.text = str(int(math.log(self.n.n, 37)))
             else:
                 MDDialog(text="Wprowadzono niepoprawne granice").open()
         except Exception as e:
             self.root.ids.odszyfrowane2.text = str(e)
+
+    def zmien_minimalna(self) -> None:
+        if self.root.ids.check.active:
+            new_n = int(bin(self.n.n)[:-8], 2)
+            self.root.ids.minimalna2.text = str(int(math.log(new_n, 37)))
+        else:
+            self.root.ids.minimalna2.text = str(int(math.log(self.n.n, 37)))
 
     def zaszyfruj_Rabin(self) -> None:
         """
@@ -352,11 +369,12 @@ class Kryptografia(MDApp):
         Funkcja sprawdzająca pierwszość liczby za pomocu wybranego testu pierwszości (Millera-Rabina lub Fermata).
 
         """
+        slow = {True: "Prawda", False: "Fałsz"}
         self.root.ids.pierwsza.text = ""
         if self.root.ids.Rabin.active:
-            self.root.ids.pierwsza.text = str(ps.prim.test_Millera_Rabina(int(self.root.ids.liczba.text), 20))
+            self.root.ids.pierwsza.text = slow[ps.prim.test_Millera_Rabina(int(self.root.ids.liczba.text), 20)]
         elif self.root.ids.Fermat.active:
-            self.root.ids.pierwsza.text = str(ps.prim.test_Fermata(int(self.root.ids.liczba.text), 20))
+            self.root.ids.pierwsza.text = slow[ps.prim.test_Fermata(int(self.root.ids.liczba.text), 20)]
         else:
             MDDialog(text='Nie wybrano żadnej z opcji').open()
 
@@ -372,15 +390,56 @@ class Kryptografia(MDApp):
             self.root.ids.rozklad.text = self.root.ids.rozklad.text[:-2]
         elif self.root.ids.fer.active:
             y = ps.prim.Fermat2(int(self.root.ids.zlozona.text), self.root.ids.rozklad, time.time())
-            if not y:
+            if True in (y, y):
                 MDDialog(text="Przekroczono czas obliczeń", items='alert').open()
             else:
                 self.root.ids.rozklad.text = self.root.ids.rozklad.text[:-2]
         elif self.root.ids.Pollard.active:
-            ps.prim.rho2(int(self.root.ids.zlozona.text), 1, 0, 3, 9000, 2, self.root.ids.rozklad)
-            self.root.ids.rozklad.text = self.root.ids.rozklad.text[:-2]
+            y = ps.prim.rho2(int(self.root.ids.zlozona.text), self.pollard_a, self.pollard_b, self.pollard_c,
+                             50000, 2, self.root.ids.rozklad)
+            if True in (y, y):
+                MDDialog(text="Przekroczono liczbę iteracji", items='alert').open()
+            else:
+                self.root.ids.rozklad.text = self.root.ids.rozklad.text[:-2]
         else:
             MDDialog(text='Nie wybrano żadnej z opcji').open()
+
+        text = self.root.ids.rozklad.text.split(',')
+        if '' not in text:
+            text = sorted(map(int, text))
+            self.root.ids.rozklad.text = ", ".join(map(str, text))
+
+    def domyslne_wspolczynniki(self):
+        """
+        Ustawienie domyślnych współczynników funkcji kwadratowej dla metody rho Pollarda.
+        """
+        self.pollard_a = 1
+        self.pollard_b = 0
+        self.pollard_c = 5
+
+    def zmien_Pollard(self) -> None:
+        """
+        Funkcja wyświetlająca okno dialogowe po naciśnięciu na przycisk dotyczący metody rho Pollarda.
+        """
+        self.content = Content()
+        MDDialog(title="Współczynniki funkcji kwadratowej:",
+                 type="custom",
+                 content_cls=self.content).open()
+
+    def funkcja_Pollard(self, name: str) -> None:
+        """
+        Funkcja umożliwiaja zmianę współczynników dla funkcji kwadratowej występującej
+        przy metodzie rho Pollarda.
+
+        :param name: Określa, który współczynnik ma zostać zmieniony
+
+        """
+        if name == "a":
+            self.pollard_a = int(self.content.ids.pollard_a.text)
+        elif name == "b":
+            self.pollard_b = int(self.content.ids.pollard_b.text)
+        elif name == "c":
+            self.pollard_c = int(self.content.ids.pollard_c.text)
 
     def sprawdz(self) -> None:
         """

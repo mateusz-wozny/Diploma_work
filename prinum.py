@@ -121,16 +121,19 @@ class prim():
             if 1 < d < m:
                 break
             if d == m:
-                break
+                if prim.test_Millera_Rabina(d, 10):
+                    break
+                else:
+                    x = random.randint(1, n - 1)
             i += 1
         if i == B:
-            t.text = 'Przekroczono liczbę iteracji'
+            return True
         else:
             if d == 1:
                 t.text += str(m // d)
                 t.text += ', '
             elif m // d == 1:
-                t.text += str(d)
+                t.text += str(m)
                 t.text += ', '
             else:
                 return prim.rho2(d, a, b, c, B, pocz, t), prim.rho2(m // d, a, b, c, B, pocz, t)
@@ -163,14 +166,13 @@ class prim():
             y = int((x ** 2 - n) ** (1 / 2))
             if x ** 2 - y ** 2 == n:
                 break
-            if time.time() - czas > 10:
-                return False
+            if time.time() - czas > 5:
+                return True
             x += 1
         if x != (n + 1) // 2:
             p = x + y
             q = x - y
         q, p = int(q), int(p)
-
         if q == 1:
             t.text += str(p) + ', '
         else:
